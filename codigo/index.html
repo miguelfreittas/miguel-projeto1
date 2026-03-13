@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tbanco</title>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;600;700&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Loading -->
+<div id="page-loading" class="page active">
+  <div class="spin"></div>
+  <div class="load-txt">carregando...</div>
+</div>
+
+<!-- Landing -->
+<div id="page-landing" class="page">
+  <div class="land">
+    <div class="logo">tbanco.</div>
+    <button class="btn btn-b" onclick="showPage('cadastro')">criar conta</button>
+    <button class="btn btn-o" onclick="showPage('login')">ja tenho conta</button>
+  </div>
+</div>
+
+<!-- Cadastro -->
+<div id="page-cadastro" class="page">
+  <div class="auth-box">
+    <button class="back" onclick="showPage('landing')">← voltar</button>
+    <div class="auth-logo">tbanco.</div>
+    <div class="auth-h">criar conta</div>
+    <div class="alert a-err" id="cad-err"></div>
+    <div class="alert a-ok" id="cad-ok"></div>
+    <div class="fg">
+      <label class="lbl">usuario</label>
+      <input class="inp" id="cu" type="text" placeholder="ex: joao" autocomplete="off">
+      <div class="ferr" id="fe-cu"></div>
+    </div>
+    <div class="fg">
+      <label class="lbl">senha</label>
+      <input class="inp" id="cp" type="password" placeholder="minimo 6 caracteres">
+      <div class="ferr" id="fe-cp"></div>
+    </div>
+    <div class="fg">
+      <label class="lbl">confirmar senha</label>
+      <input class="inp" id="cp2" type="password" placeholder="">
+      <div class="ferr" id="fe-cp2"></div>
+    </div>
+    <button class="btn btn-b" onclick="cadastrar()">criar conta</button>
+    <div class="auth-foot">ja tem conta? <a onclick="showPage('login')">entrar</a></div>
+  </div>
+</div>
+
+<!-- Login -->
+<div id="page-login" class="page">
+  <div class="auth-box">
+    <button class="back" onclick="showPage('landing')">← voltar</button>
+    <div class="auth-logo">tbanco.</div>
+    <div class="auth-h">entrar</div>
+    <div class="alert a-err" id="login-err"></div>
+    <div class="fg">
+      <label class="lbl">usuario</label>
+      <input class="inp" id="lu" type="text" placeholder="seu usuario" autocomplete="off">
+      <div class="ferr" id="fe-lu"></div>
+    </div>
+    <div class="fg">
+      <label class="lbl">senha</label>
+      <input class="inp" id="lp" type="password" placeholder="sua senha">
+      <div class="ferr" id="fe-lp"></div>
+    </div>
+    <button class="btn btn-b" onclick="login()">entrar</button>
+    <div class="auth-foot">nao tem conta? <a onclick="showPage('cadastro')">criar agora</a></div>
+  </div>
+</div>
+
+<!-- Dashboard -->
+<div id="page-dashboard" class="page">
+  <nav class="nav">
+    <div class="nav-logo">tbanco.</div>
+    <div class="nav-r">
+      <span class="nav-nm">oi, <strong id="dn"></strong></span>
+      <div class="ava" id="da"></div>
+      <button class="out-btn" onclick="logout()">sair</button>
+    </div>
+  </nav>
+
+  <div class="body">
+
+    <div class="bal-wrap" id="bal-wrap">
+      <div>
+        <div class="bal-lbl">seu saldo</div>
+        <div class="bal-val blur" id="bv">R$ 0,00</div>
+      </div>
+      <button class="show-btn" onclick="toggleBal()">mostrar / ocultar</button>
+    </div>
+
+    <div class="tabs">
+      <button class="tab on" onclick="sw('p-main', this)">conta</button>
+      <button class="tab" onclick="sw('p-hist', this)">historico</button>
+      <button class="tab" id="adm-tab" style="display:none" onclick="sw('p-adm', this)">admin</button>
+    </div>
+
+    <div class="pane on" id="p-main">
+      <div class="g2">
+        <div class="card">
+          <div class="card-h">transferir</div>
+          <div class="tf">
+            <div class="fg" style="margin:0">
+              <label class="lbl">pra quem?</label>
+              <input class="inp" id="td" type="text" placeholder="usuario" autocomplete="off">
+              <div class="ferr" id="fe-td"></div>
+            </div>
+            <div class="fg" style="margin:0">
+              <label class="lbl">quanto? (R$)</label>
+              <input class="inp" id="tv" type="number" placeholder="0.00" min="0.01" step="0.01">
+              <div class="ferr" id="fe-tv"></div>
+            </div>
+            <button class="btn btn-b" onclick="transferir()">transferir</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-h">ultimas</div>
+          <div class="tx" id="tx5"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pane" id="p-hist">
+      <div class="card">
+        <div class="card-h">historico</div>
+        <div class="tx" id="txall"></div>
+      </div>
+    </div>
+
+    <div class="pane" id="p-adm">
+      <div class="adm-sec">
+        <div class="adm-tag">visao geral</div>
+        <div class="stats" id="adm-stats"></div>
+      </div>
+      <div class="adm-sec">
+        <div class="adm-tag">depositar</div>
+        <div class="adm-sub">adiciona qualquer dinheiro na conta de alguem</div>
+        <div class="tf">
+          <div class="fg" style="margin:0">
+            <label class="lbl">usuario</label>
+            <input class="inp" id="adu" type="text" placeholder="nome do usuario" autocomplete="off">
+            <div class="ferr" id="fe-adu"></div>
+          </div>
+          <div class="fg" style="margin:0">
+            <label class="lbl">valor (R$)</label>
+            <input class="inp" id="adv" type="number" placeholder="qualquer valor" min="0.01" step="0.01">
+            <div class="ferr" id="fe-adv"></div>
+          </div>
+          <button class="btn btn-b" onclick="admDep()">depositar</button>
+        </div>
+      </div>
+      <div class="adm-sec">
+        <div class="adm-tag">remover saldo</div>
+        <div class="adm-sub">tira um valor do saldo de alguem</div>
+        <div class="tf">
+          <div class="fg" style="margin:0">
+            <label class="lbl">usuario</label>
+            <input class="inp" id="aru" type="text" placeholder="nome do usuario" autocomplete="off">
+            <div class="ferr" id="fe-aru"></div>
+          </div>
+          <div class="fg" style="margin:0">
+            <label class="lbl">valor (R$)</label>
+            <input class="inp" id="arv" type="number" placeholder="valor a remover" min="0.01" step="0.01">
+            <div class="ferr" id="fe-arv"></div>
+          </div>
+          <button class="btn btn-b" onclick="admRem()">remover</button>
+        </div>
+      </div>
+      <div class="adm-sec">
+        <div class="adm-tag">usuarios</div>
+        <div class="tx" id="adm-ul" style="margin-top:10px"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <div class="toast-t" id="tt"></div>
+  <div class="toast-m" id="tm"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
