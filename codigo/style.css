@@ -27,7 +27,7 @@ body {
 .page { display: none; min-height: 100vh; }
 .page.active { display: flex; }
 
-/* LANDING */
+
 #page-landing {
   flex-direction: column;
   align-items: center;
@@ -48,7 +48,7 @@ body {
   margin-bottom: 44px;
 }
 
-/* BUTTONS */
+
 .btn {
   width: 100%;
   padding: 12px 18px;
@@ -73,7 +73,7 @@ body {
 }
 .btn-o:hover { border-color: var(--b); }
 
-/* AUTH */
+
 #page-cadastro,
 #page-login {
   flex-direction: column;
@@ -182,7 +182,7 @@ body {
   text-underline-offset: 2px;
 }
 
-/* DASHBOARD */
+
 #page-dashboard { flex-direction: column; }
 
 .nav {
@@ -299,7 +299,7 @@ body {
 }
 .show-btn:hover { background: var(--g3); }
 
-/* TABS */
+
 .tabs {
   display: flex;
   gap: 2px;
@@ -332,7 +332,7 @@ body {
 .pane { display: none; }
 .pane.on { display: block; animation: fade .2s ease; }
 
-/* CARDS */
+
 .card {
   background: var(--w);
   border: 1px solid var(--g3);
@@ -352,7 +352,7 @@ body {
   .g2 { grid-template-columns: 1fr; }
 }
 
-/* TRANSACTIONS */
+
 .tx { display: flex; flex-direction: column; gap: 5px; }
 
 .tx-row {
@@ -395,10 +395,10 @@ body {
 
 .empty { text-align: center; padding: 22px; color: var(--g4); font-size: .8rem; }
 
-/* FORM */
+
 .tf { display: flex; flex-direction: column; gap: 11px; }
 
-/* ADMIN */
+
 .adm-sec {
   background: var(--w);
   border: 1px solid var(--g3);
@@ -485,7 +485,7 @@ body {
   color: var(--green);
 }
 
-/* LOADING */
+
 #page-loading {
   flex-direction: column;
   align-items: center;
@@ -508,7 +508,7 @@ body {
   font-family: 'Geist Mono', monospace;
 }
 
-/* TOAST */
+
 .toast {
   position: fixed;
   bottom: 18px;
@@ -540,4 +540,5 @@ body {
 }
 @keyframes spin {
   to { transform: rotate(360deg); }
+
 }
